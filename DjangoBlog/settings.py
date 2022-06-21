@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -117,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'#ジャンゴの中で使用する言語
+LANGUAGE_CODE = 'ja'#ジャンゴの中で使用する言語
 
-TIME_ZONE = 'UTC'#UTCは日本標準時-9h
+TIME_ZONE = 'Asia/Tokyo'#UTCは日本標準時-9h
 
 USE_I18N = True#多言語化機能
 

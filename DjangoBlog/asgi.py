@@ -14,3 +14,4 @@ from django.core.asgi import get_asgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoBlog.settings')
 
 application = get_asgi_application()
+#asgiは非同期で動作する。ただし、ウェブアプリがASGI仕様で書かれていることが必要
