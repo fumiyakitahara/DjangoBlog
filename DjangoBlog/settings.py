@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'DjangoBlog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', #データベースを操作するためのプログラム
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -132,7 +132,7 @@ USE_TZ = True#タイムゾーンを変換する機能
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'#静的ファイルを収めたフォルダーのURL
+STATIC_URL = '/static/'#静的ファイルを収めたフォルダーのURL,本来ならウェブサーバに任せるところ
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
