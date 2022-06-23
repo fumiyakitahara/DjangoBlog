@@ -2,7 +2,10 @@ from django.shortcuts import render
 
 # django.views.genericからListView、DetailViewをインポート
 from django.views.generic import ListView, DetailView, TemplateView
-
+from django.views.generic import FormView
+from django.urls import reverse_lazy
+from .form import ContactForm
+from django.contrib import messages
 from .models import BlogPost
 
 class IndexView(ListView):
@@ -46,3 +49,92 @@ class IndexView(ListView):
     context_object_name   テーブルから取り出したレコードはcontextに辞書方として格納される。この時のキーがobject_listだが、そのキーの名前を変更できる
 
     """
+
+class BlogDetail(DetailView):
+    '''詳細ページのビュー
+    
+    投稿記事の詳細を表示するのでDetailViewを継承する
+     Attributes:
+      template_name: レンダリングするテンプレート
+      Model: モデルのクラス
+
+      DetailViewのスーパークラスSingleObjectMixinにおいて
+      if pk is not None:
+        queryset = queryset.filter(pk=pk)   が実行されている
+    '''
+    # post.htmlをレンダリングする
+    template_name ='detail.html'
+    # クラス変数modelにモデルBlogPostを設定
+    model = BlogPost
+
+class ScienceView(ListView):
+    '''科学(science)カテゴリの記事を一覧表示するビュー
+    
+    '''
+    # science_list.htmlをレンダリングする
+    template_name ='science_list.html'
+    # クラス変数modelにモデルBlogPostを設定
+    model = BlogPost
+    # object_listキーの別名を設定
+    context_object_name = 'science_records'
+    # category='science'のレコードを抽出して
+    # 投稿日時の降順で並べ替える
+    queryset = BlogPost.objects.filter(
+        category='science').order_by('-posted_at')
+    # 1ページに表示するレコードの件数
+    paginate_by = 2
+
+class DailylifeView(ListView):
+    '''日常(dailylife)カテゴリの記事を一覧表示するビュー
+    
+    '''
+    # dailylife_list.htmlをレンダリングする
+    template_name ='dailylife_list.html'
+    # クラス変数modelにモデルBlogPostを設定
+    model = BlogPost
+    # object_listキーの別名を設定
+    context_object_name = 'dailylife_records'
+    # category='dailylife'のレコードを抽出して
+    # 投稿日時の降順で並べ替える
+    queryset = BlogPost.objects.filter(
+        category='dailylife').order_by('-posted_at')
+    # 1ページに表示するレコードの件数
+    paginate_by = 2
+
+class MusicView(ListView):
+    '''音楽(music)カテゴリの記事を一覧表示するビュー
+    
+    '''
+    # music_list.htmlをレンダリングする
+    template_name ='music_list.html'
+    # クラス変数modelにモデルBlogPostを設定
+    model = BlogPost
+    # object_listキーの別名を設定
+    context_object_name = 'music_records'
+    # category='music'のレコードを抽出して
+    # 投稿日時の降順で並べ替える
+    queryset = BlogPost.objects.filter(
+        category='music').order_by('-posted_at')
+    # 1ページに表示するレコードの件数
+    paginate_by = 2
+
+class ContactView(FormView):
+    """
+    form_class django.views.generic.edit.FormMixinで定義されているクラス変数
+    reverse_lazy  URLを逆引き形式にする ex)blog:contactをURLに
+    form_valid()  フォームに入力されたデータがPOSTされた時に呼ばれるメソッド FormMixinで定義されている
+
+    """
+    template_name = "contact.html"
+    form_class = ContactForm
+    success_url = reverse_lazy("blog:contact")
+
+    def form_valid(self, form):
+        form.send_email()
+
+        messages.success(
+            self.request, "お問い合わせは正常に送信されました"
+        )
+
+        return super().form_valid(form)
+

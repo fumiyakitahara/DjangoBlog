@@ -7,7 +7,7 @@
 {% load static %}
 <!-- ヘッダー情報のページタイトルは
   ベーステンプレートを利用するページで設定する -->
-{% block title %}Django's Blog{% endblock %}
+{% block title %}Django's Blog - Science{% endblock %}
 
   <!-- Navigation -->
   <!-- ナビゲーションはベーステンプレートで設定済みなので削除 -->
@@ -25,7 +25,7 @@
             <!-- ヘッダーの大見出し(タイトル)を変更 -->
             <h1>Django's Blog</h1>
             <!-- サブタイトルを変更 -->
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+            <span class="subheading">Scienceカテゴリの記事一覧</span>
           </div>
         </div>
       </div>
@@ -40,10 +40,10 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <!--
-         レコードが格納されたorderby_recordsから
+         レコードが格納されたscience_recordsから
          レコードを1行ずつrecordに取り出す
         -->
-        {% for record in orderby_records %}
+        {% for record in science_records %}
         <div class="post-preview">
           <!--
           urlでURLパターン'blog-detail/<int:pk>/'を生成し、
@@ -61,7 +61,7 @@
               <span style="font-size : 16pt">
                 <!--
                  contentフィールドを出力
-                 truncatecharsで出力する文字数を50以内に制限
+                 truncatecharsで出力する文字数を40以内に制限
                 -->
                 {{record.content|truncatechars:50}}
               </span>
@@ -92,8 +92,7 @@
       </div>
     </div>
   </div>
-  <!-- Divider-->
-  <hr class="my-4" />
+  <hr>
   {% endblock %}
   
   <!-- Footer -->
