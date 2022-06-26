@@ -143,3 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {
     constants.SUCCESS: "alart alert-success",
 }
+
+# フォームの送信データをターミナルに出力
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
